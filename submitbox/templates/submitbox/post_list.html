@@ -1,0 +1,41 @@
+﻿{% extends 'submitbox/base.html' %}
+
+{% block content %}
+<div class="post">
+<a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+<table border="1" width="1200" cellspacing="0" cellpadding="5" bordercolor="#000000">
+<thead>
+
+<form  method="POST" action="{% url 'post_list' %}">{% csrf_token %}
+<p>キャラクター検索：<br>
+	<input type="search" name ="search_text" value="search_text"><input type="submit" value="search" name="search"></p>
+</form>
+
+<tr>
+<div class ="list-header">
+<th >キャラクター</th>
+<th >システム</th>
+<th >コメント</th>
+<th >更新日</th>
+<th >編集</th>
+<th >削除</th>
+</div>
+</tr>
+</thead>
+<tbody>
+{% for post in posts %}
+<tr>
+<td align="left" nowrap  width="300"><a href="{{ post.page_url }}">{{ post.character_name }}</td>
+<td valign="top" >{{ post.system_name }}</td>
+<td valign="top" >{{ post.user_comment}}</a></td>
+<td valign="top" >{{ post.published_date }}</td>
+<td valign="top" ><a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+<td valign="top" ><form  method="POST" action="{% url 'post_delete'  pk=post.pk %}">{% csrf_token %}
+<button class="btn" type="submit" onclick='return confirm("本当に削除しますか？");'><span class="glyphicon glyphicon-remove"></span>
+</button></form></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% endblock %}

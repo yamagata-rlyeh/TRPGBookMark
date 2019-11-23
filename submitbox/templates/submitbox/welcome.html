@@ -1,0 +1,9 @@
+﻿{% extends 'submitbox/base.html' %}
+
+{% block content %}
+
+
+<a  href="{% url 'login_form' %}"><button type="submit" class="save btn btn-default"">ログイン</button></a>
+<a href="{% url 'new_user_add' %}"><button type="submit" class="save btn btn-default" >ユーザー登録</button></a>
+
+{% endblock %}
